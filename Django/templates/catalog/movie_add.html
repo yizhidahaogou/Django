@@ -1,0 +1,22 @@
+
+{% extends 'base.html' %}
+{% block title %}add movies{% endblock %}
+{% block content %}
+<h1>add new movie</h1>
+<form method="post" enctype="multipart/form-data" class="movie-form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}<li>{{ error }}</li>{% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn-submit">save movie</button>
+</form>
+{% endblock %}

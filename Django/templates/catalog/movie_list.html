@@ -1,0 +1,24 @@
+
+{% extends 'base.html' %}
+{% block title %}all movies{% endblock %}
+{% block content %}
+<h1>list</h1>
+<table class="movie-table">
+    <thead>
+        <tr><th>heading</th><th>data</th><th>时长</th><th>marks</th><th>operation</th></tr>
+    </thead>
+    <tbody>
+        {% for movie in movies %}
+        <tr>
+            <td><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</a></td>
+            <td>{{ movie.release_date|date:"Y-m-d" }}</td>
+            <td>{{ movie.duration }} minstd>
+            <td>{{ movie.rating }}/10</td>
+            <td><a href="{% url 'movie_delete' movie.pk %}" class="btn-delete"><i class="fas fa-trash"></i></a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">not movie"{% url 'movie_add' %}">add</a>。</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,12 @@
+
+{% extends 'base.html' %}
+{% block title %}delete movie{% endblock %}
+{% block content %}
+<h1>sure delete</h1>
+<p>sure delete《{{ movie.title }}》？this operation cannot be undone.</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn-danger">sure delete</button>
+    <a href="{% url 'movie_detail' movie.pk %}" class="btn">cancel</a>
+</form>
+{% endblock %}

@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+{% block title %}profile - movie catalog{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>welcome to catalog</h1>
+    <p>nomber of movies in the collection：<strong>{{ movie_count }}</strong> 部</p>
+    <a href="{% url 'movie_list' %}" class="btn">view all</a>
+</section>
+<section class="recent-movies">
+    <h2><i class="fas fa-star"></i> currently added</h2>
+    <div class="movie-grid">
+        {% for movie in recent_movies %}
+            <div class="movie-card">
+                {% if movie.poster %}
+                    <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                {% else %}
+                    <div class="poster-placeholder"><i class="fas fa-video"></i></div>
+                {% endif %}
+                <h3><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</a></h3>
+                <small>{{ movie.release_date|date:"Y-m-d" }}</small>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

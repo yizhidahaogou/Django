@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+{% block title %}{{ movie.title }} - details{% endblock %}
+{% block content %}
+<article class="movie-detail">
+    <div class="poster-section">
+        {% if movie.poster %}
+            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        {% else %}
+            <div class="poster-placeholder"><i class="fas fa-film fa-5x"></i></div>
+        {% endif %}
+    </div>
+    <div class="info-section">
+        <h1>{{ movie.title }}</h1>
+        <p><strong>data：</strong>{{ movie.release_date }}</p>
+        <p><strong>duration：</strong>{{ movie.duration }} mins</p>
+        <p><strong>marks：</strong>{{ movie.rating }}/10</p>
+        <p><strong>difficulty：</strong>{{ movie.get_difficulty_display }}</p>
+        <p><strong>likes：</strong>{{ movie.is_favorite|yesno:"yes,no" }}</p>
+        <p><strong>genre：</strong>
+            {% for genre in movie.genres.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+        </p>
+        <p><strong>introduce：</strong>{{ movie.summary|linebreaks }}</p>
+        <p><strong>adder：</strong>{{ movie.added_by.username }}</p>
+        <div class="actions">
+            <a href="{% url 'movie_delete' movie.pk %}" class="btn-delete">delete this movie</a>
+        </div>
+    </div>
+</article>
+{% endblock %}
